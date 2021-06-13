@@ -81,7 +81,10 @@ void RtspPlayer::play(const string &strUrl){
     }
 
     _play_url = url._url;
-    _rtp_type = (Rtsp::eRtpType)(int)(*this)[kRtpType];
+
+    if (_rtp_type == Rtsp::RTP_Invalid)
+        _rtp_type = (Rtsp::eRtpType)(int)(*this)[kRtpType];
+
     DebugL << url._url << " " << (url._user.size() ? url._user : "null") << " " << (url._passwd.size() ? url._passwd : "null") << " " << _rtp_type;
 
     weak_ptr<RtspPlayer> weakSelf = dynamic_pointer_cast<RtspPlayer>(shared_from_this());
@@ -495,6 +498,10 @@ void RtspPlayer::onRtpSorted(RtpPacket::Ptr rtppt, int trackidx){
     _stamp[trackidx] = rtppt->getStampMS();
     _rtp_recv_ticker.resetTime();
     onRecvRTP(std::move(rtppt), _sdp_track[trackidx]);
+}
+
+void RtspPlayer::setRtpType(Rtsp::eRtpType type) {
+    _rtp_type = type;
 }
 
 float RtspPlayer::getPacketLossRate(TrackType type) const{

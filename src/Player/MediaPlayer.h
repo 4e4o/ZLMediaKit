@@ -24,6 +24,7 @@ namespace mediakit {
 class MediaPlayer : public PlayerImp<PlayerBase,PlayerBase> {
 public:
     typedef std::shared_ptr<MediaPlayer> Ptr;
+    typedef std::function<void(PlayerBase::Ptr)> TPlayerCreatedEvent;
 
     MediaPlayer(const EventPoller::Ptr &poller = nullptr);
     virtual ~MediaPlayer();
@@ -32,10 +33,15 @@ public:
     void teardown() override;
     EventPoller::Ptr getPoller();
     void setOnCreateSocket(Socket::onCreateSocket cb);
+    template<class Callable>
+    void setOnPlayerCreatedEvent(Callable&& c) {
+        _playerCreatedEvent = std::move(c);
+    }
 
 private:
     EventPoller::Ptr _poller;
     Socket::onCreateSocket _on_create_socket;
+    std::function<void(PlayerBase::Ptr)> _playerCreatedEvent;
 };
 
 } /* namespace mediakit */

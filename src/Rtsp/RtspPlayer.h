@@ -44,6 +44,7 @@ public:
     void pause(bool pause_flag) override;
     void teardown() override;
     float getPacketLossRate(TrackType type) const override;
+    void setRtpType(Rtsp::eRtpType type);
 
 protected:
     //派生类回调函数
@@ -136,7 +137,7 @@ private:
     string _session_id;
     uint32_t _cseq_send = 1;
     string _content_base;
-    Rtsp::eRtpType _rtp_type = Rtsp::RTP_TCP;
+    Rtsp::eRtpType _rtp_type = Rtsp::RTP_Invalid;
 
     //当前rtp时间戳
     uint32_t _stamp[2] = {0, 0};
