@@ -1,6 +1,6 @@
 [submodule "ZLToolKit"]
 	path = 3rdpart/ZLToolKit
-	url = git@github.com:4e4o/ZLToolKit.git
+	url = https://github.com/4e4o/ZLToolKit.git
 [submodule "3rdpart/media-server"]
 	path = 3rdpart/media-server
-	url = git@github.com:4e4o/media-server.git
+	url = https://github.com/4e4o/media-server.git
