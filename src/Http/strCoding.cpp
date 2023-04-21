@@ -9,6 +9,7 @@
  */
 
 #include <string.h>
+#include <inttypes.h>
 #include "strCoding.h"
 
 #if defined(_WIN32)
